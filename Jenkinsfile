@@ -1,10 +1,38 @@
 pipeline {
     agent any
     
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
+        KUBE_CONFIG = credentials('kube-config-file')
+    }
+
     stages {
-        stage('Hello World') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Merhaba, DevOps!!!'
+                script {
+                    docker.build("klenroixtia/my-project:${env.BUILD_NUMBER}", "-f Dockerfile .")
+                }
+            }
+        }
+        
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                        docker.image("klenroixtia/my-project:${env.BUILD_NUMBER}").push()
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    def kubeConfig = readFile "${KUBE_CONFIG}"
+                    withKubeConfig([credentialsId: 'kube-config-file', kubeconfigContent: kubeConfig]) {
+                        sh 'kubectl apply -f deployment.yaml'
+                    }
+                }
             }
         }
     }
