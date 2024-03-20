@@ -30,7 +30,7 @@ pipeline {
                 script {
                     def kubeConfig = readFile "${KUBE_CONFIG}"
                     withKubeConfig([credentialsId: 'kube-config-file', kubeconfigContent: kubeConfig]) {
-                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'kubectl apply -f kubernetes/deployment.yaml'
                     }
                 }
             }
