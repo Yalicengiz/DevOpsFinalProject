@@ -35,5 +35,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    docker.image("klenroixtia/my-project:${env.BUILD_NUMBER}").run("-p 3000:3000")
+                }
+            }
+        }
     }
 }
