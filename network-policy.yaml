@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: my-project-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: my-project  # Bu NetworkPolicy, app: my-project etiketine sahip tüm podları etkileyecek
+  policyTypes:
+    - Ingress  # Gelen trafiği kısıtlamak için Ingress kullanılır
+    - Egress   # Giden trafiği kısıtlamak için Egress kullanılır
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: jenkins  # Jenkins podlarından gelen trafiği kabul et
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: jenkins  # Jenkins podlarına giden trafiği izin ver

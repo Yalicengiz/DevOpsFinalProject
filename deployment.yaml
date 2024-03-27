@@ -17,6 +17,9 @@ spec:
           image: klenroixtia/my-project:v1
           ports:
             - containerPort: 3000
+          securityContext:
+            runAsNonRoot: true  # Pod'un root kullanıcı olarak çalışmasını engeller
+            readOnlyRootFilesystem: true  # ReadOnly root dosya sistemi
           resources:
             limits:
               cpu: "1"

@@ -35,6 +35,7 @@ pipeline {
                         bat 'kubectl apply -f configmap.yaml'
                         bat 'kubectl apply -f secret.yaml'
                         bat 'kubectl apply -f deployment.yaml'
+                        bat 'kubectl apply -f network-policy.yaml'
                     }
                 }
             }
