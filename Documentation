@@ -1,0 +1,28 @@
+Proje Dokümantasyonu: DevOpsFinalProject
+Bu dokümantasyon, DevOpsFinalProject adlı proje için Kubernetes yapılandırması, CI/CD süreçleri ve diğer önemli bilgileri içermektedir.
+
+Proje Tanımı ve Amaç
+DevOpsFinalProject, bir React uygulamasının Docker konteynerlerinde çalıştırılması ve Kubernetes üzerinde dağıtılması için bir örnektir.
+
+Kubernetes Yapılandırması
+Deployment
+Proje, Kubernetes Deployment nesnesi aracılığıyla dağıtılır.
+Replica sayısı: 3
+Güvenlik ayarları: Pod Security Policies kullanılarak sağlanmıştır.
+Network Policy
+Uygulamanın ağ trafiği kısıtlanmıştır.
+Jenkins podlarından gelen trafiğe izin verilmiştir.
+CI/CD Süreçleri
+Jenkins Pipeline
+Jenkins pipeline, projenin CI/CD süreçlerini otomatize etmek için kullanılmaktadır.
+Docker imajlarının oluşturulması, Docker Hub'a yüklenmesi ve Kubernetes'e dağıtılması Jenkins pipeline ile sağlanmaktadır.
+Diğer Önemli Bilgiler
+Dockerfile
+Proje için Docker imajının nasıl oluşturulacağını belirten Dockerfile mevcuttur.
+İmaj, Node.js tabanlı bir Alpine Linux imajından türetilmiştir.
+Jenkins
+Jenkins, CI/CD süreçlerini yönetmek için kullanılmaktadır.
+Jenkins pipeline'ı, proje için Docker imajlarının oluşturulması, yayımlanması ve Kubernetes'e dağıtılması gibi adımları otomatize etmektedir.
+YAML Dosyaları
+Kubernetes nesnelerinin tanımlarını içeren YAML dosyaları proje kök dizininde bulunmaktadır.
+Bu dosyalar, Deployment, Service, ConfigMap, Secret ve NetworkPolicy gibi Kubernetes nesnelerini içermektedir.
