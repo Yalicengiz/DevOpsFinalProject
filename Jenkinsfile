@@ -30,7 +30,7 @@ pipeline {
                 script {
                     def kubeConfig = readFile "${KUBE_CONFIG}"
                     withKubeConfig([credentialsId: 'kube-config-file', kubeconfigContent: kubeConfig]) {
-                        sh 'kubectl set image deployment/my-project my-project=klenroixtia/my-project:${env.BUILD_NUMBER}'
+                        bat 'kubectl set image deployment/my-project my-project=klenroixtia/my-project:${env.BUILD_NUMBER}'
                     }
                 }
             }
