@@ -28,9 +28,13 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
+                    // YAML dosyalarını Kubernetes'e uygulama
                     def kubeConfig = readFile "${KUBE_CONFIG}"
                     withKubeConfig([credentialsId: 'kube-config-file', kubeconfigContent: kubeConfig]) {
-                        bat 'kubectl set image deployment/my-project my-project=klenroixtia/my-project:${env.BUILD_NUMBER}'
+                        bat 'kubectl apply -f service.yaml'
+                        bat 'kubectl apply -f configmap.yaml'
+                        bat 'kubectl apply -f secret.yaml'
+                        bat 'kubectl apply -f deployment.yaml'
                     }
                 }
             }
